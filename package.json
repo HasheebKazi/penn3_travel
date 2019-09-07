@@ -1,0 +1,29 @@
+{
+  "name": "pennapps_2019",
+  "version": "0.1.0",
+  "description": "Pennapps hack: group travel app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HasheebKazi/pennapps_hack2019.git"
+  },
+  "keywords": [
+    "df"
+  ],
+  "author": "Hasheeb Kazi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/HasheebKazi/pennapps_hack2019/issues"
+  },
+  "homepage": "https://github.com/HasheebKazi/pennapps_hack2019#readme",
+  "dependencies": {
+    "body-parse": "^0.1.0",
+    "connect-mongodb-session": "^2.2.0",
+    "express": "^4.17.1",
+    "express-session": "^1.16.2",
+    "mongoose": "^5.6.13"
+  }
+}
