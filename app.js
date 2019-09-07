@@ -39,18 +39,7 @@ app.set('views', 'views');
 // request response cycle
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: false }));
-
-app.get('/api', (req, res, next) => {
-    res.json({
-        name: 'Hello World.'
-    });
-});
-
-// const mongo_apikey = 'mongodb+srv://node_project:teaEiGCZ73hR587W@summer-2019-fo8l7.mongodb.net/shop2?retryWrites=true&w=majority';
-
-// exports.MONGO_URI = mongo_apikey;
-
-
+app.use(bodyParser.json());
 
 
 app.get('/', (req, res, next) => {
