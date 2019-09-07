@@ -11,16 +11,9 @@ const userSchema = new mongoose.Schema({
     },
     items: {
         vacations_info: [{
-            // productId: {
-            //     type: mongoose.Schema.Types.ObjectId,
-            //     ref: 'Product',
-            //     required: true
-            // },
-            // quantity: {
-            //     type: Number,
-            //     required: true
-            // }
+
         }]
     }
 });
-// module.exports = User;
+
+module.exports = mongoose.model('User', userSchema);
