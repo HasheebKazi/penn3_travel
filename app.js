@@ -2,10 +2,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const session = require('express-session');
-const MongoDBStore = require('connect-mongodb-session')(session);
-
-
+// const session = require('express-session');
+// const MongoDBStore = require('connect-mongodb-session')(session);
 
 // node core libraries
 const path = require('path');
@@ -15,10 +13,10 @@ const fs = require('fs');
 const APIkeys = require('./magic');
 const MONGO_URI = APIkeys.MONGO_URI;
 
-const store = new MongoDBStore({
-    uri: MONGO_URI,
-    collection: 'sessions'
-});
+// const store = new MongoDBStore({
+    // uri: MONGO_URI,
+    // collection: 'sessions'
+// });
 
 
 // internal imports
@@ -26,14 +24,14 @@ const store = new MongoDBStore({
 
 // initialize and configure app
 const app = express();
-app.use(
-    session({
-        secret: 'my secret',
-        resave: false,
-        saveUninitialized: false,
-        store: store
-    })
-);
+// app.use(
+//     session({
+//         secret: 'my secret',
+//         resave: false,
+//         saveUninitialized: false,
+//         store: store
+//     })
+// );
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');

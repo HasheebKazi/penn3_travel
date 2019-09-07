@@ -4,7 +4,9 @@
   "description": "Pennapps hack: group travel app",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js",
+    "start-server": "node app.js"
   },
   "repository": {
     "type": "git",
@@ -26,5 +28,8 @@
     "express": "^4.17.1",
     "express-session": "^1.16.2",
     "mongoose": "^5.6.13"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.2"
   }
 }
