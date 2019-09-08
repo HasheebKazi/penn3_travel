@@ -21,10 +21,10 @@ const tripSchema = new mongoose.Schema({
         type: String,
         require: true
     },
-    key_words: {
+    key_words: [{
         type: String,
         require: true
-    }
+    }]
 });
 
 module.exports = mongoose.model('Trip', tripSchema);
