@@ -10,7 +10,7 @@ router.post('/put_trip', mainController.postCreateTrip);
 
 router.get('/get_user_activities', mainController.getUserActivities);
 
-router.get('/event', mainController.getEvent)
+router.get('/events', mainController.getEvent)
 router.post('/event', mainController.createEvent);
 
 router.get('/get_user_trips', mainController.getUserTrips);

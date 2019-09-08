@@ -2,6 +2,7 @@ const User = require('../models/user');
 const Trip = require('../models/trips'); 
 const Event = require('../models/events');
 const mongoose = require('mongoose');
+const twilio = require('twilio');
 
 exports.getTest = (req, res, next) => {
     res.json({
@@ -81,7 +82,7 @@ exports.postCreateTrip = (req, res, next) => {
 
     .then(result => {
         return Trip.find({
-            start_time: starting_time,
+            starting_time: starting_time,
             city: city
         })
     })
@@ -102,6 +103,26 @@ exports.postCreateTrip = (req, res, next) => {
     .then(event => {
         console.log('created event ==========================')
         console.log(event);
+        var accountSid = 'AC783a3e91fd196f85a5dba5d43b390de4'; // Your Account SID from www.twilio.com/console
+        var authToken = '38206230397ead3ac9be0d28fa434eb2';   // Your Auth Token from www.twilio.com/console
+        var client = new twilio(accountSid, authToken);
+        console.log('half text')
+
+        client.messages.create({
+            body: 'confirmation',
+            to: '+15084149203',  // Text this number
+            from: '+12156082556' // From a valid Twilio number
+        })
+        .then((message) => console.log(message.sid));
+        
+        client.messages.create({
+            body: 'confirmation',
+            to: '+12404753888',  // Text this number
+            from: '+12156082556' // From a valid Twilio number
+        })
+        .then((message) => console.log(message.sid));
+
+
         res.status(200).json({
             event: event,
             success: '200 success'
@@ -202,9 +223,12 @@ exports.createEvent = (req, res, next) => {
             start_time: starting_time,
             city: city
         })
-        .toArray()
+        // .toArray()
     })
     .then(trips => {
+        
+        
+
         res.status(200).json({
             success: '200 success found',
         })
@@ -215,7 +239,7 @@ exports.createEvent = (req, res, next) => {
 exports.getEvent = (req, res, next) => {
 // const email = 'test2@mail.com';
     const email = req.query.email;
-    Trip.findOne({ email: email})
+    Event.find({ ownerEmail: email})
     .then(trip => {
         if(!trip) {
             return res.status(404).json({
@@ -224,7 +248,7 @@ exports.getEvent = (req, res, next) => {
             });
         } else {
             return res.status(200).json({
-                trip: trip
+                events: trip
             });
         }
     })
