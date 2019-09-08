@@ -144,14 +144,15 @@ exports.createEvent = (req, res, next) => {
 
 
     User.findOne({ email: email})
-    .then((userId) => {
+    .then((user) => {
         const event = new Event({
             ownerEmail: email,
-            ownerId: userId,
+            ownerId: user._id,
             starting_time: starting_time,
             ending_time: ending_time,
             city: city,
-            participantList: participants
+            participantList: participants,
+            commonActivities: user.activities
         });
     
         return event.save()

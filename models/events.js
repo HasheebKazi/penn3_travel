@@ -30,7 +30,8 @@ const eventSchema = new mongoose.Schema({
     city: {
         type: String,
         required: true
-    }
+    },
+    commonActivities: [String]
 });
 
 module.exports = mongoose.model('Event', eventSchema);
