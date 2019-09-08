@@ -47,20 +47,23 @@ exports.postCreateTrip = (req, res, next) => {
     const ending_time = req.body.ending_time;
     const city = req.body.city;
     let keyWord = req.body.key_words.split(',');
-    console.log('================================')
-    console.log(keyWord);
+    // console.log('================================')
+    // console.log(keyWord);
     let array1 = [];
     keyWord.forEach(p => {
 
         array1.push(p.trimStart());
     })
 
+    let XXuser;
+
 
     User.findOne({ email: email})
-    .then((userId) => {
+    .then((user) => {
+        XXuser = user;
         const trip = new Trip({
             email: email,
-            userId: userId,
+            userId: user._id,
             starting_time: starting_time,
             ending_time: ending_time,
             city: city,
@@ -69,10 +72,39 @@ exports.postCreateTrip = (req, res, next) => {
     
         return trip.save()
     })
+    // .then(result => {
+    //     console.log(result);
+    //     res.status(200).json({
+    //         success: '200 success found',
+    //     })
+    // })
+
     .then(result => {
-        console.log(result);
+        return Trip.find({
+            start_time: starting_time,
+            city: city
+        })
+    })
+    .then(trip => {
+        const event = new Event({
+            ownerEmail: email,
+            ownerId: XXuser._id,
+            participantList: [
+                trip.email, XXuser
+            ],
+            starting_time: trip.starting_time,
+            ending_time: trip.ending_time,
+            city: 'Orlando, FL',
+            commonActivities: ['nice times', 'feels good']
+        });
+        return event.save();
+    })
+    .then(event => {
+        console.log('created event ==========================')
+        console.log(event);
         res.status(200).json({
-            success: '200 success found',
+            event: event,
+            success: '200 success'
         })
     })
     .catch(err => console.log(err));
@@ -108,6 +140,10 @@ exports.getUserActivities = (req, res, next) => {
         throw 'server err failed to find user';
     });
 };
+
+exports.findInnocentPrey = (req, res, next) => {
+
+}
 
 exports.getUserTrips = (req, res, next) => {
     const email = req.query.email;
@@ -158,7 +194,17 @@ exports.createEvent = (req, res, next) => {
         return event.save()
     })
     .then(result => {
-        console.log(result);
+        // console.log(result);
+        // res.status(200).json({
+        //     success: '200 success found',
+        // })
+        return Trip.find({
+            start_time: starting_time,
+            city: city
+        })
+        .toArray()
+    })
+    .then(trips => {
         res.status(200).json({
             success: '200 success found',
         })
